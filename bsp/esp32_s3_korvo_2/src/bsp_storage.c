@@ -58,7 +58,7 @@ void bsp_sdcard_get_sdmmc_host(const int slot, sdmmc_host_t *config)
 {
     assert(config);
     sdmmc_host_t host_config = SDMMC_HOST_DEFAULT();
-
+    host_config.slot = slot;
     memcpy(config, &host_config, sizeof(sdmmc_host_t));
 }
 
@@ -72,18 +72,18 @@ void bsp_sdcard_get_sdspi_host(const int slot, sdmmc_host_t *config)
 void bsp_sdcard_sdmmc_get_slot(const int slot, sdmmc_slot_config_t *config)
 {
     assert(config);
-    memset(config, 0, sizeof(sdmmc_slot_config_t));
-    /* SD card is connected to Slot 0 pins. Slot 0 uses IO MUX, so not specifying the pins here */
-    config->cd = SDMMC_SLOT_NO_CD;
-    config->wp = SDMMC_SLOT_NO_WP;
-    config->cmd = BSP_SD_CMD;
-    config->clk = BSP_SD_CLK;
-    config->d0 = BSP_SD_D0;
-    config->d1 = BSP_SD_D1;
-    config->d2 = BSP_SD_D2;
-    config->d3 = BSP_SD_D3;
-    config->width = 1;
-    config->flags = 0;
+    sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
+    slot_config.cd = SDMMC_SLOT_NO_CD;
+    slot_config.wp = SDMMC_SLOT_NO_WP;
+    slot_config.cmd = BSP_SD_CMD;
+    slot_config.clk = BSP_SD_CLK;
+    slot_config.d0 = BSP_SD_D0;
+    slot_config.d1 = BSP_SD_D1;
+    slot_config.d2 = BSP_SD_D2;
+    slot_config.d3 = BSP_SD_D3;
+    slot_config.width = 1;
+    slot_config.flags |= SDMMC_SLOT_FLAG_INTERNAL_PULLUP;
+    memcpy(config, &slot_config, sizeof(sdmmc_slot_config_t));
 }
 
 void bsp_sdcard_sdspi_get_slot(const spi_host_device_t spi_host, sdspi_device_config_t *config)
