@@ -147,7 +147,7 @@
 #define BSP_SD_D3            (GPIO_NUM_NC)
 #define BSP_SD_CMD           (GPIO_NUM_7)
 #define BSP_SD_CLK           (GPIO_NUM_15)
-#define BSP_SD_DET           (GPIO_NUM_NC)
+// #define BSP_SD_DET           (GPIO_NUM_NC)
 /** @} */ // end of storage
 
 /** @defgroup g09_battery Battery
