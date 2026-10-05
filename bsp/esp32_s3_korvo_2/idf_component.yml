@@ -12,7 +12,9 @@ dependencies:
   idf: ">=5.4"
 
   espressif/esp_codec_dev:
-    path: "../../components/esp_codec_dev"
+    version: "*"
+    public: true
+    override_path: "../../components/esp_codec_dev"
 
   espressif/esp_io_expander_tca9554:
     version: "*"
