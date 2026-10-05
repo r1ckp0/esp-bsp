@@ -11,7 +11,7 @@ tags:
 dependencies:
   idf: ">=5.4"
 
-  esp_codec_dev:
+  espressif/esp_codec_dev:
     path: "../../components/esp_codec_dev"
 
   espressif/esp_io_expander_tca9554:
