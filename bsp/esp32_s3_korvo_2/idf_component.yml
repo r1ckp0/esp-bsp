@@ -12,8 +12,7 @@ dependencies:
   idf: ">=5.4"
 
   esp_codec_dev:
-    version: "~1.5"
-    public: true
+    path: "../../components/esp_codec_dev"
 
   espressif/esp_io_expander_tca9554:
     version: "*"
