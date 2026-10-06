@@ -1,0 +1,36 @@
+version: "0.1.0"
+description: Board Support Package (BSP) for ESP32-LyraT-Mini v1.2
+url: https://github.com/espressif/esp-bsp/tree/master/bsp/esp32_lyrat_mini
+
+targets:
+  - esp32
+
+tags:
+  - bsp
+  - audio
+
+dependencies:
+  idf: ">=6.0"
+
+  button:
+    version: "^4"
+    public: true
+
+  led_indicator:
+    version: "^2"
+    public: true
+
+  espressif/esp_codec_dev:
+    version: "*"
+    public: true
+
+  espressif/es8311:
+    version: "*"
+    public: true
+
+  espressif/es7243:
+    version: "*"
+    public: true
+
+examples:
+  - path: ../../examples/audio

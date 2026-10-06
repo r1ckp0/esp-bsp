@@ -1,0 +1,75 @@
+menu "Board Support Package (ESP32-LyraT-Mini)"
+
+    config BSP_ERROR_CHECK
+        bool "Enable error check in BSP"
+        default y
+        help
+            Assert on BSP errors before returning the error code.
+
+    menu "I2C"
+
+        config BSP_I2C_NUM
+            int "I2C peripheral index"
+            default 0
+            range 0 1
+            help
+                I2C master peripheral used by ES8311 and ES7243.
+                The LyraT Mini routes codec I2C through GPIO18 (SDA)
+                and GPIO23 (SCL).
+
+    endmenu
+
+    menu "Storage"
+
+        menu "SPIFFS - Virtual File System"
+
+            config BSP_SPIFFS_FORMAT_ON_MOUNT_FAIL
+                bool "Format SPIFFS if mounting fails"
+                default n
+
+            config BSP_SPIFFS_MOUNT_POINT
+                string "SPIFFS mount point"
+                default "/spiffs"
+
+            config BSP_SPIFFS_PARTITION_LABEL
+                string "Partition label of SPIFFS"
+                default "storage"
+
+            config BSP_SPIFFS_MAX_FILES
+                int "Max files supported for SPIFFS VFS"
+                default 5
+
+        endmenu
+
+        menu "SD card - Virtual File System"
+
+            config BSP_SD_FORMAT_ON_MOUNT_FAIL
+                bool "Format SD card if mounting fails"
+                default n
+                help
+                    Format the SD card as FAT if mounting fails.
+
+            config BSP_SD_MOUNT_POINT
+                string "SD card mount point"
+                default "/sdcard"
+
+        endmenu
+
+    endmenu
+
+    menu "Audio"
+
+        config BSP_AUDIO_DEFAULT_SAMPLE_RATE
+            int "Default audio sample rate"
+            default 16000
+            range 8000 48000
+            help
+                Default sample rate used by the BSP when bsp_audio_init()
+                is called with NULL configuration.
+
+                ES8311 uses I2S0 and ES7243 uses I2S1. Both codecs share
+                GPIO0 as MCLK and must use a compatible sample rate.
+
+    endmenu
+
+endmenu
