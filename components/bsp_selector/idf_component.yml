@@ -49,6 +49,13 @@ dependencies:
     matches:
       - if: $CONFIG{ESP32_LYRAT} == 1
 
+  esp32_lyrat_mini:
+    version: "*"
+    public: true
+    override_path: "../../bsp/esp32_lyrat_mini"
+    matches:
+      - if: $CONFIG{ESP32_LYRAT_MINI} == 1
+
   esp32_p4_eye:
     version: "*"
     public: true

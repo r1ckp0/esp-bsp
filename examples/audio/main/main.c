@@ -81,8 +81,7 @@ static void audio_task(void *arg) {
     int btn_index = 0;
     if (xQueueReceive(audio_button_q, &btn_index, portMAX_DELAY) == pdTRUE) {
       switch (btn_index) {
-      // case BSP_BUTTON_REC: {
-      case BSP_BUTTON_VOLDOWN: {
+      case BSP_BUTTON_REC: {
 #ifdef HAS_LED_STRIP
         for (int i = 0; i < 7; i++) {
             led_strip_set_pixel(strip, i, 255, 0, 0);
@@ -119,8 +118,8 @@ static void audio_task(void *arg) {
             .channel = 1,
             .bits_per_sample = 16,
         };
-        esp_codec_dev_set_in_gain(mic_codec_dev, 42.0);
         esp_codec_dev_open(mic_codec_dev, &fs);
+        esp_codec_dev_set_in_gain(mic_codec_dev, 42.0);
 
         ESP_LOGI(TAG, "Recording start");
         size_t bytes_written_to_spiffs = 0;
@@ -144,8 +143,8 @@ static void audio_task(void *arg) {
         esp_codec_dev_close(mic_codec_dev);
         break;
       }
-      // case BSP_BUTTON_SET: {
-      case BSP_BUTTON_VOLUP: {
+      case BSP_BUTTON_MODE:
+      case BSP_BUTTON_SET: {
 #ifdef HAS_LED_STRIP
         for (int i = 0; i < 7; i++) {
             led_strip_set_pixel(strip, i, 0, 0, 255);
@@ -223,8 +222,7 @@ static void audio_task(void *arg) {
         esp_codec_dev_close(spk_codec_dev);
         break;
       }
-      // case BSP_BUTTON_VOLDOWN: {
-      case BSP_BUTTON_REC: {
+      case BSP_BUTTON_VOLDOWN: {
         int vol;
         esp_codec_dev_get_out_vol(spk_codec_dev, &vol);
         vol = (vol - 5 < 0) ? 0 : vol - 5;
@@ -232,8 +230,7 @@ static void audio_task(void *arg) {
         ESP_LOGI(TAG, "Volume Down: %i", vol);
         break;
       }
-      // case BSP_BUTTON_VOLUP: {
-      case BSP_BUTTON_SET: {
+      case BSP_BUTTON_VOLUP: {
         int vol;
         esp_codec_dev_get_out_vol(spk_codec_dev, &vol);
         vol = (vol + 5 > 100) ? 100 : vol + 5;
@@ -250,9 +247,13 @@ static void audio_task(void *arg) {
 }
 
 void app_main(void) {
-  gpio_reset_pin(BOARD_PA_EN_PIN);
-  gpio_set_direction(BOARD_PA_EN_PIN, GPIO_MODE_OUTPUT);
-  gpio_set_level(BOARD_PA_EN_PIN, 1); //
+#if defined(BOARD_PA_EN_PIN)
+  if (GPIO_IS_VALID_GPIO(BOARD_PA_EN_PIN)) {
+    gpio_reset_pin(BOARD_PA_EN_PIN);
+    gpio_set_direction(BOARD_PA_EN_PIN, GPIO_MODE_OUTPUT);
+    gpio_set_level(BOARD_PA_EN_PIN, 1);
+  }
+#endif
   ESP_ERROR_CHECK(bsp_spiffs_mount());
 #ifdef HAS_LED_STRIP
   ESP_ERROR_CHECK(bsp_led_strip_init());

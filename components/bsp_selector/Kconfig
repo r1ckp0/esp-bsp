@@ -27,6 +27,11 @@ menu "BSP Selector"
         default 1 if BSP_SELECT_ESP32_LYRAT
         default 0
 
+    config ESP32_LYRAT_MINI
+        int
+        default 1 if BSP_SELECT_ESP32_LYRAT_MINI
+        default 0
+
     config ESP32_P4_EYE
         int
         default 1 if BSP_SELECT_ESP32_P4_EYE
@@ -153,6 +158,10 @@ menu "BSP Selector"
         config BSP_SELECT_ESP32_LYRAT
             depends on IDF_TARGET_ESP32 && BSP_SELECT_GLIB
             bool "ESP32_LYRAT"
+
+        config BSP_SELECT_ESP32_LYRAT_MINI
+            depends on IDF_TARGET_ESP32 && BSP_SELECT_GLIB
+            bool "ESP32_LYRAT_MINI"
 
         config BSP_SELECT_ESP32_P4_EYE
             depends on IDF_TARGET_ESP32P4

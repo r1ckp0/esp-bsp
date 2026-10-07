@@ -10,7 +10,7 @@ tags:
   - audio
 
 dependencies:
-  idf: ">=6.0"
+  idf: ">=5.3"
 
   button:
     version: "^4"
@@ -20,17 +20,10 @@ dependencies:
     version: "^2"
     public: true
 
-  espressif/esp_codec_dev:
+  esp_codec_dev:
     version: "*"
     public: true
-
-  espressif/es8311:
-    version: "*"
-    public: true
-
-  espressif/es7243:
-    version: "*"
-    public: true
+    override_path: "../../components/esp_codec_dev"
 
 examples:
   - path: ../../examples/audio

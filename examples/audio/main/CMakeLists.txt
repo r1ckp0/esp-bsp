@@ -1,2 +1,16 @@
-idf_component_register(SRCS "main.c"
+if(APP_MAIN_SRC STREQUAL "main")
+    set(MAIN_SRC "main.c")
+elseif(APP_MAIN_SRC STREQUAL "test_button")
+    set(MAIN_SRC "../../../bsp/esp32_lyrat_mini/src/test_button.c")
+elseif(APP_MAIN_SRC STREQUAL "test_led")
+    set(MAIN_SRC "../../../bsp/esp32_lyrat_mini/src/test_led.c")
+elseif(CONFIG_AUDIO_EXAMPLE_SOURCE_TEST_BUTTON)
+    set(MAIN_SRC "../../../bsp/esp32_lyrat_mini/src/test_button.c")
+elseif(CONFIG_AUDIO_EXAMPLE_SOURCE_TEST_LED)
+    set(MAIN_SRC "../../../bsp/esp32_lyrat_mini/src/test_led.c")
+else()
+    set(MAIN_SRC "main.c")
+endif()
+
+idf_component_register(SRCS "${MAIN_SRC}"
                     INCLUDE_DIRS ".")

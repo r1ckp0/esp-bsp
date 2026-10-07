@@ -1,0 +1,20 @@
+menu "Audio Example Source Selection"
+
+choice AUDIO_EXAMPLE_SOURCE
+    prompt "Select source file to build"
+    default AUDIO_EXAMPLE_SOURCE_MAIN
+    help
+        Select whether to build the main audio application or one of the test files in esp32_lyrat_mini.
+
+    config AUDIO_EXAMPLE_SOURCE_MAIN
+        bool "Main Audio Example (main.c)"
+
+    config AUDIO_EXAMPLE_SOURCE_TEST_BUTTON
+        bool "Test Button ADC (test_button.c)"
+
+    config AUDIO_EXAMPLE_SOURCE_TEST_LED
+        bool "Test LED Indicators (test_led.c)"
+
+endchoice
+
+endmenu

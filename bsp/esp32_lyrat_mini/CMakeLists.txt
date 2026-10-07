@@ -20,7 +20,7 @@ set(REQ
     vfs
 
     esp_codec_dev
-    iot_button
+    button
     led_indicator
 )
 

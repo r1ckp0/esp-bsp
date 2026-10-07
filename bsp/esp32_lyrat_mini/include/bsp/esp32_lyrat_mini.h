@@ -107,6 +107,9 @@ extern "C" {
  */
 #define BSP_I2S_MCLK                 GPIO_NUM_0
 
+#define BSP_I2S0_NUM                 I2S_NUM_0
+#define BSP_I2S1_NUM                 I2S_NUM_1
+
 /*
  * I2S0: ES8311
  *
